@@ -13,7 +13,7 @@ class TodoView(APIView):
         serializer = TodoSerializer(todo, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def post(self, request,format=None):
+    def post(self, request, format=None):
         serializer = TodoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -26,5 +26,11 @@ class TodoDetailView(APIView):
         todo = Task.objects.get(id=pk)
         serializer = TodoSerializer(todo, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class TodoUpdateView(APIView):
+    def post(self, request, pk):
+        Task.objects.filter(id=pk).update(title=request.data['title'])
+        return Response(status=status.HTTP_200_OK)
 
 
