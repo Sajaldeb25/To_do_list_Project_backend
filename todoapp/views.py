@@ -21,4 +21,10 @@ class TodoView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class TodoDetailView(APIView):
+    def get(self, request, pk):
+        todo = Task.objects.get(id=pk)
+        serializer = TodoSerializer(todo, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
