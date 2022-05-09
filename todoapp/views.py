@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
+
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -31,6 +33,21 @@ class TodoDetailView(APIView):
 class TodoUpdateView(APIView):
     def post(self, request, pk):
         Task.objects.filter(id=pk).update(title=request.data['title'])
-        return Response(status=status.HTTP_200_OK)
+        return Response({'msg': 'Data updated.'}, status=status.HTTP_200_OK)
 
+
+class ToDoDeleteView(APIView):
+    def delete(self, request, pk):
+        try:
+            todo = Task.objects.get(pk=pk)
+            todo.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except ObjectDoesNotExist:
+            return Response({'msg': 'Does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class TodoCompletedView(APIView):
+    def post(self, request, pk):
+        Task.objects.filter(id=pk).update(completed=request.data['completed'])
+        return Response({'msg': 'Data updated.'}, status=status.HTTP_200_OK)
 
