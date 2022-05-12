@@ -1,3 +1,6 @@
+import random
+
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -5,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 
-from .models import Task
+from .models import Task, Article
 from .serializer import TodoSerializer
 
 
@@ -50,4 +53,15 @@ class TodoCompletedView(APIView):
     def post(self, request, pk):
         Task.objects.filter(id=pk).update(completed=request.data['completed'])
         return Response({'msg': 'Data updated.'}, status=status.HTTP_200_OK)
+
+
+def home_view(request):
+    number = random.randint(1, 5)
+    article = Article.objects.get(id=number)
+    name = "sajal"
+    h1_str = f"""
+    <h1> Hello {name}, {number}, {article.title}, { article.content} </h1>
+    """
+
+    return HttpResponse(h1_str)
 
