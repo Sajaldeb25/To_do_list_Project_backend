@@ -3,6 +3,7 @@ import random
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
+from django.template.loader import render_to_string
 
 from rest_framework.response import Response
 from rest_framework import status
@@ -58,10 +59,14 @@ class TodoCompletedView(APIView):
 def home_view(request):
     number = random.randint(1, 5)
     article = Article.objects.get(id=number)
-    name = "sajal"
-    h1_str = f"""
-    <h1> Hello {name}, {number}, {article.title}, { article.content} </h1>
-    """
+    context = {
+        "object": article,
+        "id": article.id,
+        "title": article.title,
+        "content": article.content,
+    }
+
+    h1_str = render_to_string("homeview.html", context=context)
 
     return HttpResponse(h1_str)
 
