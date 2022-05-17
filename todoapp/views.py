@@ -59,7 +59,15 @@ class TodoCompletedView(APIView):
 def home_view(request):
     number = random.randint(1, 5)
     article = Article.objects.get(id=number)
+
+    my_lst = [12, 23, 30, 11, 67]
+    my_lst_str = ""
+
+    for i in my_lst:
+        my_lst_str += f"Number is: {i}\n"
+
     context = {
+        "my_lst_str": my_lst,
         "object": article,
         "id": article.id,
         "title": article.title,
