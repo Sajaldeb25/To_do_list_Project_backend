@@ -60,7 +60,9 @@ def home_view(request):
     number = random.randint(1, 5)
     article = Article.objects.get(id=number)
 
-    my_lst = [12, 23, 30, 11, 67]
+    # my_lst = [12, 23, 30, 11, 67]
+    articles = Article.objects.all()
+    my_lst = articles
     my_lst_str = ""
 
     for i in my_lst:

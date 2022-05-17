@@ -7,9 +7,9 @@
     <h3> {{content}}</h3>
     <p> {{id}}</p>
     <ul>
-        {% for number_detail in  my_lst_str%}
+        {% for detail in  my_lst_str%}
 
-        <li>{{number_detail}}</li>
+        <li> <a href='\article\{{detail.id}}'> {{detail.title}} -> {{detail.content}} </a></li>
         {% endfor%}
 
     </ul>
