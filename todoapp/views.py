@@ -84,12 +84,12 @@ def home_view(request):
 def article_detail_view(request, pk):
     # def get(self, request, pk=None):
         article = None
+        print(pk)
         if pk is not None:
-            article = Task.objects.get(id=pk)
+            article = Article.objects.get(id=pk)
             print(article)
-        # serializer = TodoSerializer(article, many=False)
         context = {
             "obj": article
         }
-        return render(request, "/article/detail.html", context=context)
+        return render(request, "detail.html", context=context)
 
