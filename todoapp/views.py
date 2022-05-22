@@ -98,11 +98,14 @@ def article_search_view(request):
     query_dict = request.GET
     query = query_dict.get("q")
     # print(query_dict, query)
-    article = Article.objects.get(id=query)
-    # print(article)
-    context = {
-        "object": article
-    }
+    try:
+        article = Article.objects.get(id=query)
+        # print(article)
+        context = {
+            "object": article
+        }
+    except ObjectDoesNotExist:
+        context = {}
     return render(request, 'search.html', context=context)
 
 
