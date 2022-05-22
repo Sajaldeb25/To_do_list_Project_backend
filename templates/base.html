@@ -7,10 +7,13 @@
 
 <body>
     <h1> This is fixed by base.html (out of block) </h1>
+    <form method='GET' action="{% url 'Article_search' %}">
+        <input type='text' name='q' />
+        <input type='submit'/>
+    </form>
     {% block content %}
 
     {% endblock content %}
 
 </body>
-
 </html>

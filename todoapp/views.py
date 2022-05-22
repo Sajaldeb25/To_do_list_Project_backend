@@ -93,3 +93,16 @@ def article_detail_view(request, pk):
         }
         return render(request, "detail.html", context=context)
 
+
+def article_search_view(request):
+    query_dict = request.GET
+    query = query_dict.get("q")
+    # print(query_dict, query)
+    article = Article.objects.get(id=query)
+    # print(article)
+    context = {
+        "object": article
+    }
+    return render(request, 'search.html', context=context)
+
+
