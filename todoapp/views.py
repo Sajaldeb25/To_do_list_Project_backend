@@ -109,3 +109,20 @@ def article_search_view(request):
     return render(request, 'search.html', context=context)
 
 
+def article_create_view(request):
+    context = {}
+    if request.method == "POST":
+        data = request.POST
+        title = data.get("title")
+        content = data.get("content")
+        print(title, content)
+        print(title, content)
+        article_object = Article.objects.create(title=title, content=content)
+        created = True
+
+        context = {
+            "object": article_object,
+            "created": created
+        }
+    return render(request, 'create.html', context=context)
+
