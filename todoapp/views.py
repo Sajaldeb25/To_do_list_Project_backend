@@ -12,6 +12,7 @@ from rest_framework.views import APIView
 
 from .models import Task, Article
 from .serializer import TodoSerializer
+from .forms import ArticleForm
 
 
 class TodoView(APIView):
@@ -112,7 +113,10 @@ def article_search_view(request):
 
 @login_required
 def article_create_view(request):
-    context = {}
+    form = ArticleForm()
+    context = {
+        "form": form
+    }
     if request.method == "POST":
         data = request.POST
         title = data.get("title")
