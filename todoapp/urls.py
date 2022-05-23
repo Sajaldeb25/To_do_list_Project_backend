@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views import TodoView, TodoDetailView, TodoUpdateView, ToDoDeleteView, TodoCompletedView,home_view, \
     article_detail_view, article_search_view, article_create_view
 

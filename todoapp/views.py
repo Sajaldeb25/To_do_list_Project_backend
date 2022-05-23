@@ -1,5 +1,6 @@
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
@@ -109,6 +110,7 @@ def article_search_view(request):
     return render(request, 'search.html', context=context)
 
 
+@login_required
 def article_create_view(request):
     context = {}
     if request.method == "POST":
