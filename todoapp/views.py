@@ -86,10 +86,10 @@ def home_view(request):
 def article_detail_view(request, pk):
     # def get(self, request, pk=None):
         article = None
-        print(pk)
+        # print(pk)
         if pk is not None:
             article = Article.objects.get(id=pk)
-            print(article)
+            # print(article)
         context = {
             "obj": article
         }
@@ -111,24 +111,45 @@ def article_search_view(request):
     return render(request, 'search.html', context=context)
 
 
+# @login_required
+# def article_create_view(request):
+#     form = ArticleForm()
+#     context = {
+#         "form": form
+#     }
+#     if request.method == "POST":
+#         form = ArticleForm(request.POST)
+#         if form.is_valid():
+#             data = request.POST
+#             title = data.get("title")
+#             content = data.get("content")
+#             # print(title, content)
+#             # print(title, content)
+#             article_object = Article.objects.create(title=title, content=content)
+#             created = True
+#
+#             context = {
+#                 "object": article_object,
+#                 "created": created
+#             }
+#     return render(request, 'create.html', context=context)
+
+
 @login_required
 def article_create_view(request):
-    form = ArticleForm()
+    form = ArticleForm(request.POST or None)
     context = {
         "form": form
     }
-    if request.method == "POST":
-        data = request.POST
-        title = data.get("title")
-        content = data.get("content")
-        print(title, content)
-        print(title, content)
+
+    if form.is_valid():
+        title = form.cleaned_data.get("title")
+        content = form.cleaned_data.get("content")
         article_object = Article.objects.create(title=title, content=content)
         created = True
-
         context = {
-            "object": article_object,
-            "created": created
-        }
+             "object": article_object,
+             "created": created
+         }
     return render(request, 'create.html', context=context)
 
