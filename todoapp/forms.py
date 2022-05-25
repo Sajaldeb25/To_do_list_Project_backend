@@ -15,7 +15,7 @@ class ArticleForm(forms.ModelForm):
             self.add_error("title", f"\" {title} \" is already in use. Choose another title.")
 
         return data
-    
+
 
 class ArticleFormOld(forms.Form):
     title = forms.CharField()

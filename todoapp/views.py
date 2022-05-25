@@ -148,3 +148,6 @@ def article_create_view(request):
         context['form'] = ArticleForm()
     return render(request, 'create.html', context=context)
 
+
+
+
